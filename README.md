@@ -1,4 +1,4 @@
-# Ejercicio Java Spring Boot para la empresa Nisum
+# Ejercicio Java Spring Boot para la empresa 3IT
 
 ### Building and running the application
 
