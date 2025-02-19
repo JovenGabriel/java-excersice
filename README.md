@@ -211,7 +211,7 @@ Aquí tienes una guía paso a paso para probar los endpoints principales:
         {
           "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
           "number": "string",
-          "cityCode": "string",
+          "areaCode": "string",
           "countryCode": "string"
         }
       ]
