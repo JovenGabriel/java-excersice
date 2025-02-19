@@ -43,9 +43,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
 
-        if (authorizationHeader != null && authorizationHeader.startsWith(BEARER_PREFIX)) {
-            authenticateToken(authorizationHeader.substring(BEARER_PREFIX.length()));
+        if (authorizationHeader == null || !authorizationHeader.startsWith(BEARER_PREFIX)) {
+            filterChain.doFilter(request, response);
+            return;
         }
+
+        String token = authorizationHeader.substring(BEARER_PREFIX.length());
+
+        if (!jwtTokenUtil.validateToken(token)) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Unauthorized: Invalid token");
+            return;
+        }
+
+        authenticateToken(token);
 
         filterChain.doFilter(request, response);
     }
