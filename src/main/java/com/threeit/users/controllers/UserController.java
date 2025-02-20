@@ -28,9 +28,10 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * Retrieves a list of all users.
+     * Retrieves a list of all available users.
+     * The method leverages userService to fetch the user data.
      *
-     * @return a ResponseEntity containing a list of User objects.
+     * @return a ResponseEntity containing a list of UserDTO objects representing all users
      */
     @Operation(summary = "Get all users", description = "Retrieves a list of all available users")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of users")
@@ -40,12 +41,10 @@ public class UserController {
     }
 
     /**
-     * Retrieves a user based on the provided unique identifier (UUID).
+     * Retrieves a user by their unique identifier.
      *
-     * @param id the unique identifier of the user to retrieve
-     * @return a ResponseEntity containing the User object if found, or a suitable
-     *         error response if the user does not exist
-     * @throws 404 Not Found if the user with the specified ID does not exist
+     * @param id the unique identifier of the user to be retrieved
+     * @return a {@link ResponseEntity} containing the user if found; otherwise, a 404 error response
      */
     @Operation(summary = "Get a user by ID", description = "Retrieves a single user based on their unique ID")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved the user")
@@ -56,11 +55,10 @@ public class UserController {
     }
 
     /**
-     * Creates a new user and returns the created user details.
+     * Creates a new user based on the provided user details and returns the newly created user's information.
      *
-     * @param userCreateDTO the data transfer object containing user creation details
-     * @return a ResponseEntity containing the created user's details encapsulated in a UserCreatedDTO
-     * @throws 400 Bad Request if the input data is invalid
+     * @param userCreateDTO the data required to create a new user
+     * @return a ResponseEntity containing the details of the created user, including their ID, creation timestamp, and token
      */
     @Operation(summary = "Create a new user", description = "Creates a new user based on provided details and returns their information")
     @ApiResponse(responseCode = "201", description = "User successfully created")
@@ -71,13 +69,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userCreateDTO));
     }
 
+
     /**
-     * Authenticates a user based on the provided login credentials.
+     * Authenticates a user based on their email and password.
      *
-     * @param userLoginDTO the DTO containing the user's email and password for authentication
-     * @return a ResponseEntity containing the authenticated User
-     * @throws 400 Bad Request if the input login credentials are invalid
-     * @throws 404 Not Found if the user with email and/or password not matches
+     * @param userLoginDTO The DTO containing user's email and password for login.
+     * @return A ResponseEntity containing a Map with a token if the authentication is successful.
      */
     @Operation(summary = "User login", description = "Authenticates a user based on their email and password")
     @ApiResponse(responseCode = "200", description = "User successfully authenticated")
