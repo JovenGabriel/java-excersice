@@ -1,4 +1,4 @@
-# Ejercicio Java Spring Boot para la empresa 3IT
+# Ejercicio Java Spring Boot
 
 ### Building and running the application
 
